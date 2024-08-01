@@ -46,7 +46,32 @@ namespace ToDoApp.Tests
             // Assert
             _mockTaskRepository.Verify(repo => repo.Add(newTask), Times.Once);
         }
+        
+        [Fact]
+        public void UpdateTask_ShouldCallRepositoryUpdate()
+        {
+            // Arrange
+            var updatedTask = new TaskItem { Id = 1, Name = "Updated Task", IsCompleted = true };
 
-        // Add more tests for UpdateTask, DeleteTask, etc.
+            // Act
+            _taskService.UpdateTask(updatedTask);
+
+            // Assert
+            _mockTaskRepository.Verify(repo => repo.Update(updatedTask), Times.Once);
+        }
+
+        [Fact]
+        public void DeleteTask_ShouldCallRepositoryDelete()
+        {
+            // Arrange
+            var taskId = 1;
+
+            // Act
+            _taskService.DeleteTask(taskId);
+
+            // Assert
+            _mockTaskRepository.Verify(repo => repo.Delete(taskId), Times.Once);
+        }
+
     }
 }
